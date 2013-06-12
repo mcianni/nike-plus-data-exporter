@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
 
+require 'rubygems'
 require 'net/https'
 require 'JSON'
 require 'csv'
