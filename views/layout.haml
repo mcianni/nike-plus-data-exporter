@@ -3,9 +3,12 @@
     %meta{ charset: "UTF-8" }
     %title Nike+ Exporter
 
-    %link{ href: "vendor/bootstrap/css/bootstrap.css", type: "text/css", rel: "stylesheet" }
-    %link{ href: "vendor/bootstrap/css/bootstrap-responsive.css", type: "text/css", rel: "stylesheet" }
-    %link{ href: "css/style.css", type: "text/css", rel: "stylesheet" }
+    %link{ href: "/vendor/bootstrap/css/bootstrap.css", type: "text/css", rel: "stylesheet" }
+    %link{ href: "/vendor/bootstrap/css/bootstrap-responsive.css", type: "text/css", rel: "stylesheet" }
+    %link{ href: "/css/style.css", type: "text/css", rel: "stylesheet" }
 
   %body
     %div.container= yield
+
+    %script{ src: "/vendor/jquery-1.10.1.min.js", type: "text/javascript" }
+    %script{ src: "/js/misc.js", type: "text/javascript" }
