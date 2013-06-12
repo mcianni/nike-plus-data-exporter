@@ -4,6 +4,8 @@ GEM
     daemons (1.1.9)
     eventmachine (1.0.3)
     ffi (1.9.0)
+    haml (4.0.2)
+      tilt
     listen (1.1.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -32,6 +34,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
   rerun
   sinatra
   thin
