@@ -34,11 +34,12 @@ module NikePlus
     def initialize(user, email, password)
       @user = user
       cookies = login(email, password)
-      @data = get_data(user, cookies)
-      #write_to_file(data)
+      @data = get_data(user, cookies) if cookies
     end
 
     def csv
+      return nil unless @data
+
       out = CSV.generate do |csv|
         @data['activities'].each do |activity|
           csv << activity.flatten_with_path.values
@@ -60,9 +61,9 @@ module NikePlus
       resp, data = http.post(login_path, post_data, headers)
 
       unless JSON.parse(resp.body)['serviceResponse']['header']['success'] == 'true'
-        puts "Could not login. Server returned the following error(s):"
-        puts "\t" + JSON.parse(resp.body)['serviceResponse']['header']['errorCodes'].collect{|e| e['message']}.join("\n\t")
-        exit
+        error_message  = "Could not login. Server returned the following error(s):"
+        error_message += "\t" + JSON.parse(resp.body)['serviceResponse']['header']['errorCodes'].collect{|e| e['message']}.join("\n\t")
+        return nil
       end
 
       all_cookies = resp.get_fields('set-cookie')

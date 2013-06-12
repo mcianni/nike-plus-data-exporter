@@ -1,3 +1,22 @@
 body {
   padding-top: 60px;
+  background-color: #333;
 }
+
+.hero-unit .row {
+  margin-top: 30px;
+}
+
+.hero-unit .footer {
+  margin-top: 50px;
+}
+
+.hero-unit .footer p {
+  margin-bottom: 0;
+}
+
+input[type="text"],
+input[type="password"] {
+  height: 30px;
+}
+

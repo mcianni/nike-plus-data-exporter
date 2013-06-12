@@ -1,17 +1,36 @@
-.page-title
-  %h1 Nike+ Exporter
 
-%form{ action: "/", method: :post, class: "form-horizontal" }
-  .control-group
-    %label.control-label{ for: :user } Username
-    .controls
-      %input{ type: :text, name: :user }
-  .control-group
-    %label.control-label{ for: :email } Email
-    .controls
-      %input{ type: :text, name: :email }
-  .control-group
-    %label.control-label{ for: :password } Password
-    .controls
-      %input{ type: :password, name: :password }
-  %input{ type: :submit, value: :Export, class: "btn primary" }
+- if @error_message
+  .alert.alert-error= @error_message
+
+.hero-unit
+  %h1 Nike+ Exporter
+  .row
+    .span5
+      %p.lead
+        Export your data from Nike+ in one easy step. 
+      %p.lead
+        Enter your account details to download a CSV file of your entire Nike+ history.
+    .span5
+      %form{ action: "/", method: :post, class: "form-horizontal" }
+        .control-group
+          %label.control-label{ for: :user } Username
+          .controls
+            %input{ type: :text, name: :user, required: true }
+        .control-group
+          %label.control-label{ for: :email } Email
+          .controls
+            %input{ type: :text, name: :email, required: true }
+        .control-group
+          %label.control-label{ for: :password } Password
+          .controls
+            %input{ type: :password, name: :password, required: true }
+        .control-group
+          .controls
+            %input{ type: :submit, value: :Export, class: "btn btn-inverse" }
+  .footer
+    %p
+      <small><strong>Don't worry.</strong> Neither your login credentials nor your history are stored on our server.</small>
+
+    %p
+      <small>mike at <a href="http://cmplxlabs.com">cmplxlabs</a> dot com</small>
+
