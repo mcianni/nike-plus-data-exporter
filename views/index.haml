@@ -1,0 +1,17 @@
+.page-title
+  %h1 Nike+ Exporter
+
+%form{ action: "/", method: :post, class: "form-horizontal" }
+  .control-group
+    %label.control-label{ for: :user } Username
+    .controls
+      %input{ type: :text, name: :user }
+  .control-group
+    %label.control-label{ for: :email } Email
+    .controls
+      %input{ type: :text, name: :email }
+  .control-group
+    %label.control-label{ for: :password } Password
+    .controls
+      %input{ type: :password, name: :password }
+  %input{ type: :submit, value: :Export, class: "btn primary" }
