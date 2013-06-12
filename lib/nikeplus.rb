@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'net/https'
-require 'JSON'
+require 'json'
 require 'csv'
 
 module Enumerable
