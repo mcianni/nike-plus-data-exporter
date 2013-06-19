@@ -3,6 +3,10 @@ body {
   background-color: #333;
 }
 
+.hero-unit {
+  margin-bottom: 12px;
+}
+
 .hero-unit .row {
   margin-top: 30px;
 }
@@ -20,3 +24,15 @@ input[type="password"] {
   height: 30px;
 }
 
+.ps {
+  color: #AAA;
+}
+.ps p { 
+  float: right;
+  width: 75px;
+  padding: 0 0 0 5px;
+  line-height: normal;
+}
+
+.ps img {
+}
