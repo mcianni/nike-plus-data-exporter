@@ -36,3 +36,8 @@ input[type="password"] {
 
 .ps img {
 }
+
+.icon-envelope {
+  vertical-align: text-bottom;
+  margin-right: 4px;
+}
