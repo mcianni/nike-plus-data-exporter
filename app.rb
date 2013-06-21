@@ -14,7 +14,7 @@ post '/' do
     content_type "text/csv"
     @data
   else
-    @error_message = "Sorry, an error occured. Check your username/email/password."
+    @error_message = "Sorry, an error occured. Check your email/password."
     haml :index
   end
 end
