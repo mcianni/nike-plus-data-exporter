@@ -31,10 +31,9 @@ module NikePlus
   class Exporter
     attr_accessor :user, :data
 
-    def initialize(user, email, password)
-      @user = user
+    def initialize(email, password)
       cookies = login(email, password)
-      @data = get_data(user, cookies) if cookies
+      @data = get_data(cookies) if cookies
     end
 
     def csv
@@ -59,11 +58,14 @@ module NikePlus
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       resp, data = http.post(login_path, post_data, headers)
+      json = JSON.parse(resp.body)
 
-      unless JSON.parse(resp.body)['serviceResponse']['header']['success'] == 'true'
+      unless json['serviceResponse']['header']['success'] == 'true'
         error_message  = "Could not login. Server returned the following error(s):"
         error_message += "\t" + JSON.parse(resp.body)['serviceResponse']['header']['errorCodes'].collect{|e| e['message']}.join("\n\t")
         return nil
+      else
+        @user = json['serviceResponse']['body']['User']['screenName']
       end
 
       all_cookies = resp.get_fields('set-cookie')
@@ -71,8 +73,8 @@ module NikePlus
       cookies
     end
 
-    def get_data(user, cookies)
-      data_path = "http://nikeplus.nike.com/plus/activity/running/#{user}/lifetime/activities?indexStart=0&indexEnd=9999"
+    def get_data(cookies)
+      data_path = "http://nikeplus.nike.com/plus/activity/running/#{@user}/lifetime/activities?indexStart=0&indexEnd=9999"
       url = URI(data_path)
       http = Net::HTTP.new(url.host, url.port)
       resp, data = http.get(data_path, {'Cookie' => cookies})

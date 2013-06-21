@@ -7,7 +7,7 @@ get '/' do
 end
 
 post '/' do
-  exporter = NikePlus::Exporter.new(params[:user], params[:email], params[:password])
+  exporter = NikePlus::Exporter.new(params[:email], params[:password])
   @data = exporter.csv
 
   if @data
