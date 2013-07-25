@@ -7,14 +7,15 @@ get '/' do
 end
 
 post '/' do
-  exporter = NikePlus::Exporter.new(params[:email], params[:password])
-  @data = exporter.csv
-
-  if @data
+  begin
+    exporter = NikePlus::Exporter.new(params[:email], params[:password])
+    @data = exporter.csv
+  rescue NikePlus::InvalidLoginError, NikePlus::WebserviceError => e
+    @error_message = e
+    haml :index
+  else
     content_type "text/csv"
     @data
-  else
-    @error_message = "Sorry, an error occured. Check your email/password."
-    haml :index
   end
+
 end

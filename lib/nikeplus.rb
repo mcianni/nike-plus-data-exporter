@@ -28,6 +28,9 @@ module Enumerable
 end
 
 module NikePlus
+  class InvalidLoginError < StandardError; end
+  class WebserviceError   < StandardError; end
+
   class Exporter
     attr_accessor :user, :data
 
@@ -66,9 +69,8 @@ module NikePlus
       json = JSON.parse(resp.body)
 
       unless json['serviceResponse']['header']['success'] == 'true'
-        error_message  = "Could not login. Server returned the following error(s):"
-        error_message += "\t" + JSON.parse(resp.body)['serviceResponse']['header']['errorCodes'].collect{|e| e['message']}.join("\n\t")
-        return nil
+        raise NikePlus::InvalidLoginError.new(JSON.parse(resp.body)['serviceResponse']['header']['errorCodes']
+                                         .collect{|e| e['message']}.join("\n\t"))
       else
         @user = json['serviceResponse']['body']['User']['screenName']
       end
@@ -82,9 +84,15 @@ module NikePlus
       data_path = "http://nikeplus.nike.com/plus/activity/running/#{@user}/lifetime/activities?indexStart=0&indexEnd=9999"
       url = URI(data_path)
       http = Net::HTTP.new(url.host, url.port)
-      resp, data = http.get(data_path, {'Cookie' => cookies})
-      data = JSON.parse(resp.body)
-      data
+
+      begin
+        resp, data = http.get(data_path, {'Cookie' => cookies})
+      rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
+         Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => e
+        raise NikePlus::WebserviceError.new("There was an error connecting to the NikePlus website. Try again later.")
+      else
+        return JSON.parse(resp.body)
+      end
     end
 
     def write_to_file(data)
