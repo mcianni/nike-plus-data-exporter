@@ -38,10 +38,15 @@ module NikePlus
 
     def csv
       return nil unless @data
+      # Data returned is inconsistent; order varies, fields may be missing row to row
+      # so lets grab all the keys now, this will be the standard column order for output
+      # Flatten the nested activity hash, giving it compound keys
+      flattened_activities = @data['activities'].map{ |activity| activity.flatten_with_path }
+      keys = flattened_activities.map(&:keys).flatten.uniq
 
-      out = CSV.generate do |csv|
-        @data['activities'].each do |activity|
-          csv << activity.flatten_with_path.values
+      out = CSV.generate( :headers => keys, :write_headers => true ) do |csv|
+        flattened_activities.each do |activity|
+          csv << keys.map{ |key| activity[key] }
         end
       end
       out
