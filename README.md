@@ -10,7 +10,7 @@ your iOS device to record various data.
 This app gives you the ability to export your exercise data to a CSV
 file that can be imported into the spreadsheet program of your choice.
 
-You can try out a demo of this app [on heroku](http://-plus-data-exporter.heroku.com).
+You can try out a demo of this app [on heroku](http://nike-plus-data-exporter.heroku.com).
 
 
 -----------------------
