@@ -2,6 +2,9 @@ require 'sinatra'
 require 'haml'
 require './lib/nikeplus.rb'
 
+set :js_assets, Dir[File.join(settings.public_dir, "js", "*")]
+                  .map{ |f| f.gsub(settings.public_dir, '') }
+
 get '/' do
   haml :index
 end
