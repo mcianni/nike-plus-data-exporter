@@ -66,7 +66,12 @@ module NikePlus
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       resp, data = http.post(login_path, post_data, headers)
-      json = JSON.parse(resp.body)
+      begin
+        json = JSON.parse(resp.body)
+      rescue JSON::ParserError => e
+        raise NikePlus::WebserviceError.new("There was an error connecting to the \
+                                             NikePlus website. Try again later.")
+      end
 
       unless json['serviceResponse']['header']['success'] == 'true'
         raise NikePlus::InvalidLoginError.new(JSON.parse(resp.body)['serviceResponse']['header']['errorCodes']
