@@ -69,7 +69,8 @@ module NikePlus
       begin
         json = JSON.parse(resp.body)
       rescue JSON::ParserError => e
-        raise NikePlus::WebserviceError.new("There was an error connecting to the NikePlus website. Try again later.")
+        raise NikePlus::WebserviceError.new("There was an error connecting to the \
+                                             NikePlus website. Try again later.")
       end
 
       unless json['serviceResponse']['header']['success'] == 'true'
