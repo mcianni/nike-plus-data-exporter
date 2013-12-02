@@ -27,7 +27,8 @@ input[type="password"] {
 .ps {
   color: #AAA;
 }
-.ps p { 
+
+.ps p {
   float: right;
   width: 75px;
   padding: 0 0 0 5px;
@@ -35,6 +36,7 @@ input[type="password"] {
 }
 
 .ps img {
+  float: right;
 }
 
 .icon-envelope {
