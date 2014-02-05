@@ -29,14 +29,16 @@ input[type="password"] {
 }
 
 .ps p {
-  float: right;
-  width: 75px;
+  width: 80px;
   padding: 0 0 0 5px;
   line-height: normal;
+  display: inline-block;
 }
 
 .ps img {
-  float: right;
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 2px;
 }
 
 .icon-envelope {
