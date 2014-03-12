@@ -64,7 +64,7 @@ module NikePlus
       url = URI("https://secure-nikeplus.nike.com")
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       resp, data = http.post(login_path, post_data, headers)
       begin
         json = JSON.parse(resp.body)
@@ -86,10 +86,11 @@ module NikePlus
     end
 
     def get_data(cookies)
-      data_path = "http://nikeplus.nike.com/plus/activity/running/#{@user}/lifetime/activities?indexStart=0&indexEnd=9999"
+      data_path = "https://secure-nikeplus.nike.com/plus/activity/running/#{@user}/lifetime/activities?indexStart=0&indexEnd=9999"
       url = URI(data_path)
       http = Net::HTTP.new(url.host, url.port)
-
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       begin
         resp, data = http.get(data_path, {'Cookie' => cookies})
       rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
